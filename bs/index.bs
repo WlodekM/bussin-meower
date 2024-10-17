@@ -1,0 +1,52 @@
+const ws = websocket("wss://api.meower.org/v0/cloudlink?v=1");
+let chat = "";
+let token = "";
+
+fn onmessage(msg) {
+    println(msg)
+}
+
+fn onerror() {
+    println("OH SHIT WEBSOCKET ERRORED AAAAAA")
+    exit()
+}
+
+fn onclose() {
+    println("OH SHIT WEBSOCKET CLOSED AAAAAA")
+    exit()
+}
+
+fn onopen() {
+    println("yay =wsocket open")
+}
+
+fn mainthing(tinput) {
+    
+    if (tinput == "close") {
+        input("> ")(tinput)
+    } else {
+        exit()
+    }
+}
+
+fn login(usr, pwd) {
+    let body = bson.stringify({ username: usr, password: pwd });
+    println(body)
+    try {
+        fetch("https://api.meower.org/auth/login", { method: "POST", body: body, content_type: "application/json"})(fn (data) {
+            println(data.error)
+        })
+    } catch {
+        println("fuk")
+    }
+}
+
+fn whenGottenUsername(usr) {
+    input("password ples: ")(fn(pwd) {whenGottenPassword(pwd, usr)})
+}
+
+fn whenGottenPassword(pwd, usr) {
+    login(usr, pwd)
+}
+
+input("username ples: ")(whenGottenUsername)
