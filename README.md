@@ -1,6 +1,6 @@
 # meower bussin
 
-A meower client written in the bussing programming language
+A meower client written in the bussin programming language
 
 ## todo
 
